@@ -309,9 +309,14 @@ background: #F53B24;
   background-color: yellow;
 } */
 
-.YY-light {
+/* .YY-light {
   color: black;
   background: radial-gradient(circle 80px at top left, yellow, white);
+} */
+
+.YY-light {
+  color: black;
+  text-shadow: 0px 4px 6px yellow;
 }
 
 /* .YY-dark {
