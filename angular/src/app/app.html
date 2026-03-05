@@ -1,0 +1,24 @@
+
+<!-- <h1 class="text-3xl font-bold underline">Hello world!</h1> -->
+ <div class="flex flex-row">
+  <div class="basis-1/12"></div>
+  <div class="basis-full justify-items-center font-sans font-bold text-center text-2xl">Fleet Services</div>
+    <div  class="basis-1/12 text-end"> 
+    <button mat-icon-button class="flex transition-transform hover:scale-125 align-middle" (click)="toggleTheme()">
+      @if (isDark) {
+      <mat-icon>
+          light_mode
+      </mat-icon>
+      } @else {
+      <mat-icon>
+          dark_mode
+      </mat-icon>
+      }
+    </button>
+  </div>
+</div>
+
+<app-grid>
+  
+</app-grid >
+<router-outlet />

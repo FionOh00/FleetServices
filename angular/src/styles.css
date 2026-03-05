@@ -1,0 +1,89 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+/* Logo Styles */
+.logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.logo {
+    height: 60px;
+    width: auto;
+}
+
+
+.p-table {
+  font-family: Arial, Sans-serif, Helvetica;
+}
+
+
+input {
+  width: 100%;
+  background-color: transparent;
+  border: none; 
+  outline: none; 
+  border-bottom: 2px solid gray; 
+  margin: 3px;
+}
+
+.p-sortIcon {
+  @apply max-w-5 max-h-5 p-0 m-0 opacity-0 hover:opacity-100
+}
+
+.p-column-filter-menu-button .pi {
+    font-size: 0.8rem !important; /* Adjust size */
+}
+
+.p-contextmenu {
+  max-height: 240px;     
+  overflow-y: auto;       
+  overflow-x: hidden; 
+  box-shadow: 0 2px 4px gray; 
+  border: 2px solid black;  
+}
+
+.menu-header {
+  position: sticky;
+  top: 0;
+  background: lightgray;
+  font-weight: bolder;
+  padding: 8px 12px;
+  border-bottom: 1px solid #ccc;
+  z-index: 1;
+}
+
+.menu-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background: #e0e0e0;
+}
+
+/* svg {
+ @apply max-w-5 max-h-5
+} */
+
+
+/* .highlight-cell-white-dark {
+  background-color: white;
+  color: black;
+}
+
+.highlight-cell-white {
+  background-color: black;
+  color: white;
+} */

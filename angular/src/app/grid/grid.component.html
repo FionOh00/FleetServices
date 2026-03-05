@@ -1,0 +1,279 @@
+<div class="card">
+    <!-- <div class="retractable-panel" [class.open]="isPanelOpen">
+        <div class="panel-content">
+            <h3>Panel Content</h3>
+            <p>This is the retractable panel content. Add your filters, details, or additional controls here.</p>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button type="button">Filter Options</button>
+            <button type="button">Export</button>
+            <button type="button">Settings</button>
+            </div>
+        </div>
+    </div> -->
+    
+
+  <mat-accordion style="height:30px;">
+  <!-- <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header> -->
+
+    <!-- <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field> -->
+  <!-- </mat-expansion-panel> -->
+  <mat-expansion-panel (opened)="isPanelOpen = true"
+                       (closed)="isPanelOpen = false">
+    <mat-expansion-panel-header class="{{ darkMode == 'dark' ? 'bg-zinc-900' : 'bg-zinc-50' }}" style="height: 30px;">
+      <mat-panel-title>
+        Global Filters >>>
+      </mat-panel-title>
+      <!-- <mat-panel-description>
+      </mat-panel-description> -->
+    </mat-expansion-panel-header>
+    <form>
+    <div class="inline-field">
+      <label class="label-filters">DrvMgr:</label>
+      <input matInput placeholder="Drv Mgr1" />
+      <input matInput placeholder="Drv Mgr2" />
+      <input matInput placeholder="Drv Mgr3" />
+      <input matInput placeholder="Drv Mgr4" />
+      <input matInput placeholder="Drv Mgr5" />
+      <input matInput placeholder="Drv Mgr6" />
+      <input matInput placeholder="Drv Mgr7" />
+      <input matInput placeholder="Drv Mgr8" />
+      <label class="label-filters">CostCtr:</label>
+      <input matInput placeholder="Cost Ctr" />
+      <label>FltMgr:</label>
+      <input matInput placeholder="Flt Mgr1" />
+      <input matInput placeholder="Flt Mgr2" />
+      <input matInput placeholder="Flt Mgr3" />
+      <pre>     </pre>
+      <label class="label-filters">UnseenMsg:</label>
+      <input matInput placeholder="UnseenMsg" />
+    </div>
+    <div class="inline-field">
+      <label class="label-filters">CustCd:</label>
+      <input matInput placeholder="Cust Cd1" />
+      <input matInput placeholder="Cust Cd2" />
+      <input matInput placeholder="Cust Cd3" />
+      <input matInput placeholder="Cust Cd4" />
+      <input matInput placeholder="Cust Cd5" />
+      <input matInput placeholder="Cust Cd6" />
+      <label class="label-filters">DrvMgrGrp:</label>
+      <input matInput placeholder="DrvMgrGrp"/>
+      <pre></pre>
+      <label class="label-filters">UnitDiv:</label>
+      <input matInput placeholder="UnitDiv1" />
+      <input matInput placeholder="UnitDiv2" />
+      <input matInput placeholder="UnitDiv3" />
+      
+      <label class="label-filters" style="margin-left: 10px;">Flt:</label>
+        <input matInput placeholder="DFT" />
+      <label class="label-filters">Sort:</label>
+      <input matInput placeholder="Sort..." />
+      <label class="label-filters">Cnt:</label>
+      <input matInput placeholder="Cnt" />
+    </div>
+  </form>
+    <!-- <div class="row">
+        <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                <label for="drvMgrFilter1">Drv Mgr:</label>
+                <input class="" id="drvMgrFilter1" type="text" minlength="5" required>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                <input class="" id="drvMgrFilter2" type="text" minlength="5" required>
+            </div>
+        </div>
+    </div> -->
+ <!-- <mat-form-field class="example-form-field">
+  <mat-label>Drv Mgr</mat-label>
+  <input matInput type="text" [(ngModel)]="drvMgrFilter">
+  @if (drvMgrFilter) {
+    <button matSuffix matIconButton aria-label="Clear" (click)="drvMgrFilter=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  }
+</mat-form-field> -->
+        
+        
+    
+    <!-- <p>I'm visible because I am open</p> -->
+  </mat-expansion-panel>
+</mat-accordion>
+<div class="p-1">
+    <!-- <div class="mb-4 flex gap-1">
+        <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+        <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+        <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+    </div> -->
+
+    <p-contextMenu #cm [model]="contextMenuItems" (onHide)="selectedUnit = null">
+      <ng-template pTemplate="item" let-item>
+        <!-- First item as fixed header -->
+        @if (item.index === '0') {
+          <div class="menu-header">
+              Select Option:
+          </div>
+        }
+        @else {
+          <div class="menu-item" (click)="item.command && item.command()">
+            <i class="{{ item.icon }}"></i>
+            {{item.idx}}-{{ item.label }}
+          </div>
+        }
+      </ng-template>
+    </p-contextMenu>
+
+    <p-table #dt
+        [value]="rowData"
+        [paginator]="true"
+        [rows]="rows"
+        [showCurrentPageReport]="true"
+        [first]="first"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [size]="'small'"
+        showGridlines
+        [scrollable]="true" scrollDirection="horizontal"
+        selectionMode="single" [(selection)]="selectedUnit"
+        dataKey="fields.unit" 
+       (onRowSelect)="onRowSelected($event)"
+        [metaKeySelection]="false"
+        [(contextMenuSelection)]="selectedUnit"
+        [contextMenu]="cm"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        (onPage)="pageChange($event)"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
+    >
+        <ng-template #header>
+            <tr>
+                <th colspan="7"></th>
+                <!-- <th ></th>
+                <th ></th>
+                <th ></th>
+                <th ></th>
+                <th ></th>
+                <th ></th> -->
+                <th colspan="2" [ngClass]="getHeaderClass('ETA')" style="text-align: center;">ETA</th>
+                <th colspan="2" [ngClass]="getHeaderClass('PTA')" style="text-align: center;">PTA</th>
+                <th colspan="3"></th>
+                <!-- <th colspan="2"></th> -->
+                <!-- <th ></th> -->
+                <th [ngClass]="getHeaderClass('7Day')">7Day</th>
+                <th></th>
+                <th [ngClass]="getHeaderClass('VHOS')" colspan="3" style="text-align: center;">---------VHOS---------</th>
+                <!-- <th [ngClass]="getHeaderClass('TPT')"></th> -->
+            </tr>
+            <tr>
+                <th [ngClass]="getHeaderClass('Opt')" >Opt</th>
+                <th [ngClass]="getHeaderClass('Unit')" pSortableColumn="unit" >Unit<p-sortIcon field="unit" /><p-columnFilter type="text" field="unit" display="menu" /></th>
+                <th [ngClass]="getHeaderClass('Stat')" pSortableColumn="stat" >Stat<p-sortIcon field="stat" /><p-columnFilter type="text" field="stat" display="menu" class="ml-auto pi" /></th>
+                <th [ngClass]="getHeaderClass('Order')" pSortableColumn="order" >Order<p-sortIcon field="order" /><p-columnFilter type="text" field="order" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Cnd')" pSortableColumn="cnd" >Cnd<p-sortIcon field="cnd" /><p-columnFilter type="text" field="cnd" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Trlr1')" pSortableColumn="trlr">Trlr1<p-sortIcon field="trlr" /><p-columnFilter type="text" field="trlr" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Dest')" pSortableColumn="dest">Destination<p-sortIcon field="dest" /><p-columnFilter type="text" field="dest" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('ETA')" pSortableColumn="etaDt">Date<p-sortIcon field="etaDt" /><p-columnFilter type="text" field="etaDt" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('ETA')" pSortableColumn="etaTm">Time<p-sortIcon field="etaTm" /><p-columnFilter type="text" field="etaTm" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('PTA')" pSortableColumn="ptaDt">Date<p-sortIcon field="ptaDt" /><p-columnFilter type="text" field="ptaDt" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('PTA')" pSortableColumn="ptaTm">Time<p-sortIcon field="ptaTm" /><p-columnFilter type="text" field="ptaTm" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Cont')" pSortableColumn="cont">Last Contact<p-sortIcon field="cont" /><p-columnFilter type="text" field="cont" display="menu" class="ml-auto" /></th>
+                <!-- <th [ngClass]="getHeaderClass('Projected')" pSortableColumn="nxStpPrjDt">Date<p-sortIcon field="nxStpPrjDt" /><p-columnFilter type="text" field="nxStpPrjDt" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Projected')" pSortableColumn="nxStpPrjTm">Time<p-sortIcon field="nxStpPrjTm" /><p-columnFilter type="text" field="nxStpPrjTm" display="menu" class="ml-auto" /></th> -->
+                <th [ngClass]="getHeaderClass('Driver')" pSortableColumn="drvr1">Driver<p-sortIcon field="drvr1" /><p-columnFilter type="text" field="drvr1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('Home')" pSortableColumn="drHome1">Home<p-sortIcon field="drHome1" /><p-columnFilter type="text" field="drHome1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('7Day')" pSortableColumn="dr7DyMl1">Mile<p-sortIcon field="dr7DyMl1" /><p-columnFilter type="text" field="dr7DyMl1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('RDO')" pSortableColumn="drRDO1">RDO<p-sortIcon field="drRDO1" /><p-columnFilter type="text" field="drRDO1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('VHOS')" pSortableColumn="dr01hr1">11Hr<p-sortIcon field="dr01hr1" /><p-columnFilter type="text" field="dr01hr1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('VHOS')" pSortableColumn="dr02hr1">14Hr<p-sortIcon field="dr02hr1" /><p-columnFilter type="text" field="dr02hr1" display="menu" class="ml-auto" /></th>
+                <th [ngClass]="getHeaderClass('VHOS')" pSortableColumn="dr03hr1">70Hr<p-sortIcon field="dr03hr1" /><p-columnFilter type="text" field="dr03hr1" display="menu" class="ml-auto" /></th>
+                <!-- <th [ngClass]="getHeaderClass('TPT')" pSortableColumn="nxStpNbr">TPT<p-sortIcon field="nxStpNbr" /><p-columnFilter type="text" field="nxStpNbr" display="menu" class="ml-auto" /></th> -->
+            </tr>`  
+        </ng-template>
+        <ng-template #body let-row>
+            <tr [pContextMenuRow]="row" [pSelectableRow]="row">
+                <td [ngClass]="getCellClass(row.iProp.opt)" >{{ row.fields.opt }} </td>
+                <td [ngClass]="getCellClass(row.iProp.unit)" >{{ row.fields.unit }}</td>
+                <td [ngClass]="getCellClass(row.iProp.stat)" >{{ row.fields.stat }}</td>
+                <td [ngClass]="getCellClass(row.iProp.order)" >{{ row.fields.order }}</td>
+                <td [ngClass]="getCellClass(row.iProp.cnd)" >{{ row.fields.cnd }}</td>
+                <td [ngClass]="getCellClass(row.iProp.trlr)">{{ row.fields.trlr }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dest)">{{ row.fields.dest }}</td>
+                <td [ngClass]="getCellClass(row.iProp.etaDt)">{{ row.fields.etaDt }}</td>
+                <td [ngClass]="getCellClass(row.iProp.etaTm)">{{ row.fields.etaTm }}</td>
+                <td [ngClass]="getCellClass(row.iProp.ptaDt)">{{ row.fields.ptaDt}}</td>
+                <td [ngClass]="getCellClass(row.iProp.ptaTm)">{{ row.fields.ptaTm}}</td>
+                <td [ngClass]="getCellClass(row.iProp.cont)">{{ row.fields.cont }}</td>
+                <!-- <td [ngClass]="getCellClass(row.iProp.nxStpPrjDt)">{{ row.fields.nxStpPrjDt }}</td>
+                <td [ngClass]="getCellClass(row.iProp.nxStpPrjTm)">{{ row.fields.nxStpPrjTm }}</td> -->
+                <td [ngClass]="getCellClass(row.iProp.drvr1)">{{ row.fields.drvr1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.drHome1)">{{ row.fields.drHome1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dr7DyMl1)">{{ row.fields.dr7DyMl1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.drRDO1)">{{ row.fields.drRDO1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dr01hr1)">{{ row.fields.dr01hr1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dr02hr1)">{{ row.fields.dr02hr1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dr03hr1)">{{ row.fields.dr03hr1 }}</td>
+                <!-- <td [ngClass]="getCellClass(row.iProp.nxStpNbr)">{{ row.fields.nxStpNbr }}</td> -->
+                <!-- <td>{{ row.fields.opt }} </td>
+                <td>{{ row.fields.unit }}</td>
+                <td [ngClass]="getCellClass(row,'Stat', rowIndex)">{{ row.fields.stat }}</td>
+                <td [ngStyle]="getCellStyle(row,'Order', rowIndex)">{{ row.fields.order }}</td>
+                <td [ngStyle]="{ color: '#E20405' }">{{ row.fields.Cnd }}</td>
+                <td>{{ row.fields.trlr }}</td>
+                <td [ngStyle]="getCellStyle(row,'Dest', rowIndex)">{{ row.fields.dest }}</td>
+                <td>{{ row.fields.etaDt }}</td>
+                <td>{{ row.fields.etaTm }}</td>
+                <td [ngClass]="getCellClass(row,'PTA', rowIndex)">{{ row.fields.ptaDt}}</td>
+                <td [ngClass]="getCellClass(row,'PTA', rowIndex)">{{ row.fields.ptaTm}}</td>
+                <td [ngStyle]="getCellStyle(row,'Projected', rowIndex)">{{ row.fields.nxStpPrjDt }}</td>
+                <td [ngStyle]="getCellStyle(row,'Projected', rowIndex)">{{ row.fields.nxStpPrjTm }}</td>
+                <td [ngClass]="getCellClass(row,'Driver', rowIndex)">{{ row.fields.drvr1 }}</td>
+                <td>{{ row.fields.reqLoc }}</td>
+                <td [ngClass]="getCellClass(row,'Plan', rowIndex)">{{ row.fields.dr7DyMl1 }}</td>
+                <td [ngStyle]="getCellStyle(row,'RDO', rowIndex)">{{ row.fields.drRDO1 }}</td>
+                <td [ngStyle]="getCellStyle(row,'VHOS11Hrs', rowIndex)">{{ row.fields.dr01hr1 }}</td>
+                <td [ngStyle]="getCellStyle(row,'VHOS14Hrs', rowIndex)">{{ row.fields.dr02hr1 }}</td>
+                <td [ngStyle]="getCellStyle(row,'VHOS70Hrs', rowIndex)">{{ row.fields.dr03hr1 }}</td>
+                <td>{{ row.fields.nxStpNbr }}</td> -->
+            </tr>
+        </ng-template>
+    </p-table>
+    <div class="row py-2" style="display: flex; justify-content: center;padding-bottom:2px;">
+        <!-- <button type="button" onclick="alert('FastPath')">FastPath</button> -->
+        <!-- <p-button label="FastPath" icon="pi pi-pencil"></p-button> -->
+        <!-- <button pButton type="button" label="FastPath" icon="pi pi-check"></button> -->
+        <!-- <button pButton><i class="pi pi-check" pButtonIcon></i><span pButtonLabel>FastPath</span></button> -->
+        <!-- <button mat-icon-button><mat-icon>favorite</mat-icon></button> -->
+        <!-- <div class="example-button-row dark:example-button-row"> -->
+        <!-- <div  [ngClass]="buttonClass"> -->
+           
+        <!-- </div> -->
+        <!-- <button mat-raised-button>FastPath</button> -->
+        <button mat-raised-button onclick="alert('FastPath')">FastPath</button>
+        <button mat-raised-button onclick="alert('Exit')">Exit</button>
+        <button mat-raised-button onclick="alert('Select')">Select</button>
+        <button mat-raised-button onclick="alert('Refresh')">Refresh</button>
+        <button mat-raised-button onclick="alert('CkCall')">CkCall</button>
+        <button mat-raised-button onclick="alert('Sort')">Sort</button>
+        <button mat-raised-button onclick="alert('Up')">Up</button>
+        <button mat-raised-button onclick="alert('Down')">Down</button>
+        <button mat-raised-button onclick="alert('Restrt')">Restrt</button>
+        <button mat-raised-button onclick="alert('Toggle')">Toggle</button>
+        <button mat-raised-button onclick="alert('CkCallAll')">CkCallAll</button>
+        <button mat-raised-button onclick="alert('MoreKeys')">MoreKeys</button>
+    </div>
+</div>
+
+<!-- Context Menu -->
