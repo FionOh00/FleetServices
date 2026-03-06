@@ -12,7 +12,7 @@
     --p-datatable-paginator-background: #1e1e1e;
     --p-datatable-paginator-text-color: #c4c4c4;
     --p-datatable-paginator-icon-color: #e1e1e1;
-    
+
     background-color: var(--p-datatable-body-background);
     color: var(--p-datatable-body-text-color);
 } */
@@ -51,7 +51,7 @@
     --p-card-text-color: #e1e1e1;
     --p-card-title-color: #e1e1e1;
     --p-card-subtitle-color: #c4c4c4;
-    
+
     background-color: var(--p-card-background);
     color: var(--p-card-text-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -71,25 +71,25 @@
 
 /* Ensure proper dark mode styling */
 .dark .card {
-    /* Material Design system variables for dark mode */
-    --mat-sys-surface: #121212;
-    --mat-sys-on-surface: #e1e1e1;
-    --mat-sys-surface-variant: #1e1e1e;
-    --mat-sys-on-surface-variant: #c4c4c4;
-    --mat-sys-background: #121212;
-    --mat-sys-on-background: #e1e1e1;
-    --mat-sys-outline: #9e9e9e;
-    --mat-sys-outline-variant: #444444;
-    --mat-sys-secondary-container: #1e3a5f;
-    --mat-sys-on-secondary-container: #d4e3ff;
-    --mat-sys-tertiary-container: #1a3a1a;
-    --mat-sys-on-tertiary-container: #d4e3d4;
-    --mat-sys-error-container: #410002;
-    --mat-sys-on-error-container: #ffdad6;
-    
-    /* Component-level dark mode overrides */
-    background-color: var(--mat-sys-surface);
-    color: var(--mat-sys-on-surface);
+  /* Material Design system variables for dark mode */
+  --mat-sys-surface: #121212;
+  --mat-sys-on-surface: #e1e1e1;
+  --mat-sys-surface-variant: #1e1e1e;
+  --mat-sys-on-surface-variant: #c4c4c4;
+  --mat-sys-background: #121212;
+  --mat-sys-on-background: #e1e1e1;
+  --mat-sys-outline: #9e9e9e;
+  --mat-sys-outline-variant: #444444;
+  --mat-sys-secondary-container: #1e3a5f;
+  --mat-sys-on-secondary-container: #d4e3ff;
+  --mat-sys-tertiary-container: #1a3a1a;
+  --mat-sys-on-tertiary-container: #d4e3d4;
+  --mat-sys-error-container: #410002;
+  --mat-sys-on-error-container: #ffdad6;
+
+  /* Component-level dark mode overrides */
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
 }
 
 /* Button label color in dark mode - white text */
@@ -104,11 +104,11 @@
 .dark .mat-mdc-flat-button,
 .dark .mat-mdc-stroked-button,
 .dark .mat-mdc-outlined-button {
-    color: #ffffff !important;
+  color: #ffffff !important;
 }
-/* 
+/*
 .dark button {
-    
+
     --mat-sys-surface: #121212;
     --mat-sys-on-surface: #e1e1e1;
     --mat-sys-surface-variant: #1e1e1e;
@@ -123,8 +123,8 @@
     --mat-sys-on-tertiary-container: #d4e3d4;
     --mat-sys-error-container: #410002;
     --mat-sys-on-error-container: #ffdad6;
-    
-    
+
+
     background-color: var(--mat-sys-surface);
     color: var(--mat-sys-on-surface);
 } */

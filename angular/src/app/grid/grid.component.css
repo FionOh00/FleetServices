@@ -11,22 +11,20 @@
 
 ::ng-deep .p-datatable-tbody > tr > td {
   font-size: 12px;
-} 
+}
 
 .p-datatable-thead {
   padding: 0px;
 }
 
-
 p-table .ui-table-tbody > tr:not(.ui-state-highlight):not(.ui-contextmenu-selected) {
-   background-color:orange !important;
+  background-color: orange !important;
 }
 
 p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
-   background-color:green !important;
-   color: #ffffff;
+  background-color: green !important;
+  color: #ffffff;
 }
-
 
 /* Reduce column filter icon size */
 /* ::ng-deep .p-column-filter-menu-button,
@@ -41,52 +39,48 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
   height: 8px !important;
 }  */
 
-
-
-
 .dark .p-table {
   font-family: Arial, sans-serif;
   background-color: #121212 !important;
   color: #e0e0e0 !important;
 }
 
-
-
-.label-filters  {
+.label-filters {
   text-shadow: 0px 1px 0px black;
 }
 
 .highlight-header-yellow-dark {
-  color: yellow;
+  color: #78e0ff;
   text-shadow: 0px 1px 0px black;
   box-shadow: 1px 2px 2px 1px lightgray;
+  font-size: larger;
 }
 
 .highlight-header-yellow-dark .th {
   padding: 0px;
 }
 
-
-
 .highlight-header-yellow {
-  color: #D7B304 ;
+  color: #0e72e4;
   text-shadow: 0px 1px 1px lightgray;
-  box-shadow: 1px 2px 2px 1px #9F9FA9;
+  box-shadow: 1px 2px 2px 1px #9f9fa9;
 }
 
 .highlight-header-pink-dark {
-  color: #ff00ff;
+  color: #ffffff;
   text-shadow: 1px 1px 0px black;
   box-shadow: 1px 2px 2px 1px lightgray;
+  font-weight: 450;
+  font-size: large;
 }
 
 .highlight-header-pink {
-  color: #ff00ff;
+  color: #0e72e4;
   text-shadow: 0px 1px 1px lightgray;
-  box-shadow: 1px 2px 2px 1px #9F9FA9;
+  box-shadow: 1px 2px 2px 1px #9f9fa9;
+  font-weight: 550;
+  font-size: large;
 }
-
-
 
 .highlight-cell-yellow-dark {
   background-color: yellow;
@@ -94,20 +88,20 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
 }
 
 .highlight-cell-yellow {
-  color: #B7A106; 
+  color: #b7a106;
 }
 
 .highlight-cell-bg-green-dark {
-  background-color: #3ED006;
+  background-color: #3ed006;
   color: black;
 }
 
 .highlight-cell-green-dark {
-  color: #3ED006;
+  color: #3ed006;
 }
 
 .highlight-cell-green {
-  color: #018E1A;
+  color: #018e1a;
 }
 
 .highlight-cell-red-dark {
@@ -116,7 +110,7 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
 }
 
 .highlight-cell-red {
-  color: #E20405;
+  color: #e20405;
 }
 
 .highlight-cell-white-dark {
@@ -129,8 +123,6 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
   color: white;
 }
 
-
-
 .inline-field {
   font-size: 12px;
   display: flex;
@@ -141,7 +133,6 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
 .inline-field label {
   white-space: nowrap;
 }
-
 
 /* Retractable Panel Styles */
 /* .panel-toggle-btn {
@@ -197,8 +188,6 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
     background: #545b62;
 } */
 
-
-
 /* .dark ::ng-deep .p-datatable-tbody > tr > td {
   border: 1px solid white;
 } */
@@ -208,7 +197,6 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
   background-color: #155724;
 } */
 
-
 /* ::ng-deep button {
   color: #000080;
 }
@@ -216,15 +204,21 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
 .dark ::ng-deep button {
   color: #ffffff !important;
   background: #808080 !important;
-} 
+}
  */
 
 .WN-light {
   color: black;
+  font-size: medium;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
 }
 
 .WN-dark {
   color: white;
+  font-size: larger;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
 }
 
 /* .WY-light {
@@ -246,7 +240,7 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
 }
 
 .RN-light {
-  color: #E20405;
+  color: #e20405;
 }
 
 .RN-dark {
@@ -263,10 +257,9 @@ p-table .ui-table .ui-table-tbody > tr.ui-state-highlight {
   background: radial-gradient(circle 80px at top left, red, white);
 }
 
-/* 
+/*
 background: #F53B24;
   background: radial-gradient(at center, #F53B24, #FFFFFF); */
-
 
 /* .RY-dark {
   color: black;
@@ -278,7 +271,7 @@ background: #F53B24;
 }
 
 .PN-light {
-  color: #E20405;
+  color: #e20405;
 }
 
 .PN-dark {
@@ -296,22 +289,12 @@ background: #F53B24;
 }
 
 .YN-light {
-  color: #B7A106;
+  color: #b7a106;
 }
 
 .YN-dark {
   color: yellow;
 }
-
-.BN-light {
-  color: blue;
-}
-
-.BN-dark {
-  color: blue;
-}
-
-
 
 /* .YY-light {
   color: black;
@@ -339,29 +322,30 @@ background: #F53B24;
 }
 
 .GN-light {
-  color: #018E1A;
+  color: #018e1a;
 }
 
 .GN-dark {
-  color: #3ED006;
+  color: #3ed006;
 }
 
 .GY-light {
   color: black;
-  background-color: #018E1A;
+  background-color: #018e1a;
 }
 
 .GY-dark {
   color: black;
-  background-color: #3ED006;
+  background-color: #3ed006;
 }
 
 .TN-light {
-  color: #06A1BC;
+  color: #06a1bc;
 }
 
 .TN-dark {
   color: Aqua;
+  font-size: medium;
 }
 
 /* .TY-light {
@@ -371,7 +355,7 @@ background: #F53B24;
 
 .TY-light {
   color: black;
-  background: radial-gradient(circle 80px at top left, #06A1BC, white);
+  background: radial-gradient(circle 80px at top left, #06a1bc, white);
 }
 
 /* .TY-dark {
@@ -386,10 +370,7 @@ background: #F53B24;
 /* :host ::ng-deep .p-contextmenu {
     box-shadow: 10px 10px 5px red;
     color: red;
-    max-height: 60px;      
-    overflow-y: auto;        
-    overflow-x: hidden; 
+    max-height: 60px;
+    overflow-y: auto;
+    overflow-x: hidden;
 } */
-
-
-
