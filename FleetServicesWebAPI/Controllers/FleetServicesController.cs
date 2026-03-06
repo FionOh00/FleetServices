@@ -440,7 +440,7 @@ namespace FleetServices.Controllers
                         unitsGdRows = "50",
                         unitsGdPage = "1",
                         unitsGdSortDi = "A",
-                        unitsGdSortCo = "UNIT",
+                        unitsGdSortCo = "PTADT",
                         unitsGdNewData = "Y",
 
                         //"optsGdRows":"100","optsGdPage":"1"

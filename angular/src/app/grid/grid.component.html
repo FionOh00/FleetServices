@@ -188,7 +188,7 @@
               @if (column.field.length >=4 && ( column.field.startsWith("dest"))) {
                 @if (column.field == "dest") {
                   <!-- <td>  </td><td [ngClass]="getCellClass(row.iProp[column.field])" > -->
-                  <td [hidden]="showHideColumn(i)">
+                  <td [hidden]="showHideColumn(i)" [ngClass]="getCellClass(row.iProp[column.field])">
                     <!-- <p-tag severity="success" [rounded]="true">{{ row.fields["dest"] }}</p-tag> -->
                     @if (isReverseImage(row.iProp[column.field])) {
                       <p-tag [severity]="getSeverity(row.iProp[column.field])" [rounded]="true">{{ row.fields["dest"] }}</p-tag>
@@ -202,7 +202,7 @@
               @else if (column.field.length >=4 && ( column.field.startsWith("cont"))) {
                 @if (column.field == "cont") {
                   <!-- <td>  </td><td [ngClass]="getCellClass(row.iProp[column.field])" > -->
-                  <td [hidden]="showHideColumn(i)">
+                  <td [hidden]="showHideColumn(i)" [ngClass]="getCellClass(row.iProp[column.field])">
                     <!-- <p-tag severity="success" [rounded]="true">{{ row.fields["dest"] }}</p-tag> -->
                     @if (isReverseImage(row.iProp[column.field])) {
                       <p-tag [severity]="getSeverity(row.iProp[column.field])" [rounded]="true">{{ row.fields["cont"] }}</p-tag>

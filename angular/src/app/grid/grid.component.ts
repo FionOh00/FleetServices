@@ -223,6 +223,16 @@ console.log(err);
         setTimeout(() => {
            //this.http.get<any[]>('https://localhost:7270/FleetServices/FleetServices')
           this.http.get<any[]>('https://sc.aos.biz/FleetServicesWebAPI/FleetServices/FleetServices')
+
+        //const url = 'https://sc.aos.biz/FleetServicesWebAPI/FleetServices/FleetServices';
+          //const body = { title: 'Angular POST Request Example' };
+          // const jsonStr = JSON.stringify({ });
+          // const body = JSON.parse(jsonStr);
+
+    // console.log(body);
+    //       this.http.post<any[]>(url, body) //.subscribe(data => {
+
+
           .subscribe({
             next: (data) => {
                 if (data.length > 0) {
