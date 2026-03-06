@@ -12,13 +12,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MenuItem } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
 import { SortEvent } from 'primeng/api';
+import { TagModule} from 'primeng/tag';
 
 
 @Component({
   selector: 'app-grid',
   standalone: true,
   imports: [ButtonModule, TableModule, MatButtonModule, CommonModule, MatExpansionModule,
-    MatInputModule, MatFormFieldModule, MatIconModule, FormsModule, ContextMenuModule, ContextMenu],
+    MatInputModule, MatFormFieldModule, MatIconModule, FormsModule, ContextMenuModule, ContextMenu, TagModule],
   templateUrl: './grid.component.html',
   styleUrl: './grid.component.css'
 })
@@ -48,6 +49,8 @@ export class GridComponent implements OnInit {
     rightClickMenuPositionX: number = 0;
     rightClickMenuPositionY: number = 0;
     showMenu: boolean = false;
+    columns: { field: string; header: string }[] = [];
+    isPageToggled: boolean = false;
     // op!: MenuItem[];
 
     ngOnInit() {
@@ -227,6 +230,12 @@ console.log(err);
                  this.initialData = data;
 console.log(this.initialData);
 this.rowData = data;
+
+      this.columns = Object.keys(this.rowData[0].fields).map(key => ({
+        field: key,
+        header: this.capitalize(key)
+      }));
+
                   // var tmpData = this.getRandomData(data.length);
                   // this.rowData = data.map((row, i) => ({ ...row, ...tmpData[i] }));
                  
@@ -251,29 +260,10 @@ this.rowData = data;
         });
     }
 
+    private capitalize(text: string): string {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
 
-    // getRandomData(numRec : number) : any {
-    //   var data: any[] = [];
-    //   for (let i = 0; i < numRec; i++) {
-    //     data.push({
-    //       ETADate: this.ETADateValueGetter(this.initialData[i]),
-    //       ETATime: this.ETATimeValueGetter(this.initialData[i]),
-    //       PTADate: this.PTADateValueGetter(this.initialData[i]),
-    //       PTATime: this.PTATimeValueGetter(this.initialData[i]),
-    //       PJADate: this.PJADateValueGetter(this.initialData[i],i),
-    //       PJATime: this.PJATimeValueGetter(this.initialData[i],i),
-    //       Cnd: CndValueGetter(),
-    //       Trlr1: Trlr1ValueGetter(),
-    //       Plan: PlanValueGetter(),
-    //       RDO: RDOValueGetter(),
-    //       VHOS11Hrs: VHOS11ValueGetter(),
-    //       VHOS14Hrs: VHOS14ValueGetter(),
-    //       VHOS70Hrs: VHOS70ValueGetter(),
-    //       TPT: TPTValueGetter(),
-    //     });
-    //   }
-    //   return data;
-    // }
 
     next() {
         this.first = this.first + this.rows;
@@ -480,12 +470,47 @@ this.rowData = data;
     getCellClass(colorCode: string) : any {
 
       var theme = this.darkMode == 'dark' ? 'dark' : 'light';
+      return colorCode == ''? '' : colorCode.endsWith('Y')? '' : colorCode + '-' + theme;
+    }
 
-      return colorCode == ""? '' : colorCode + '-' + theme;
+    isReverseImage(val: string) : boolean {
+      if (!val || val == '' || val.length < 2)
+        return false;
+      else if (val.endsWith('Y')) 
+        return true;
+      return false;
+    }
+    
+    getSeverity(colorCode: string) : any {
+      if (!colorCode || colorCode == '' || colorCode.length < 2)
+        return '';
+      var color = colorCode.substring(0, 1)
+      switch (color) {
+        case 'G':
+          return 'success';
+        case 'B':
+          return 'info';
+        case 'Y':
+          return 'warn';
+        case 'R':
+          return 'danger';
+        case 'W':
+          return 'contrast';
+        default:
+            return '';
+      }
     }
 
 
-    
+    showHideColumn(columnIndex: number) : any {
+      var result;
+      if (columnIndex < 25)
+        result =  this.isPageToggled;
+      else
+        result = !this.isPageToggled;
+      return result;
+    }
+
   
   //   getCellClass(row: any, fldName: string, rowIdx: number) : any {
   //     var cellClass= '';
@@ -561,56 +586,7 @@ this.rowData = data;
       .trim();
   }
 
-  // ETADateValueGetter(row: any) {
-  //   var d = row.EODDAT.toString().trim();
-  //   if (d.length < 8)
-  //     return row.EODDAT;
-  //   return d.substring(4,6) + '/' + d.substring(6,8);
-  // }
-
-  // ETATimeValueGetter(row: any) {
-  //   var t = row.EODTIM.toString().trim();
-  //   if (t.length < 8)
-  //     return row.EODTIM;
-  //   return t.substring(0,2) + ':' + t.substring(3,5);
-  // }
-
-  // PTADateValueGetter(row: any) {
-  //   var d = row.EOPDAT.toString().trim();
-  //   if (d.length < 8)
-  //     return row.EODDAT;
-  //   return d.substring(4,6) + '/' + d.substring(6,8);
-  // }
-
-  // PTATimeValueGetter(row: any) {
-  //   var t = row.EOPTIM.toString().trim();
-  //   if (t.length < 8)
-  //     return row.EODTIM;
-  //   return t.substring(0,2) + ':' + t.substring(3,5);
-  // }
-
-  // PJADateValueGetter(row: any, rowIdx: number) {
-  //   var d = row.EOPDAT.toString().trim();
-  //   var tmp: string[] = ['0', '0', '0', '1', '0', '0', '1', '0', '1', '1']; 
-  //   var idx = rowIdx? rowIdx : 0;
-  //   if (tmp[idx%10] == '0')
-  //     return '';
-  //   if (d.length < 8)
-  //     return row.EODDAT;
-  //   return d.substring(4,6) + '/' + d.substring(6,8);
-  // }
-
-  // PJATimeValueGetter(row: any, rowIdx: number) {
-  //   var t = row.EOPTIM.toString().trim();
-  //   var tmp: string[] = ['0', '0', '0', '1', '0', '0', '1', '0', '1', '1']; 
-  //   var idx = rowIdx? rowIdx : 0;
-  //   if (tmp[idx%10] == '0')
-  //     return '';
-  //   if (t.length < 8)
-  //     return row.EODTIM;
-  //   return t.substring(0,2) + ':' + t.substring(3,5);
-  // }
-
+  
 
 // isSorted: boolean = false;
 //   customSort(event: SortEvent) {
@@ -644,120 +620,5 @@ this.rowData = data;
 
 
 }
-
-
-
-
-
-// function ETATimeValueGetter(params: ValueGetterParams) {
-//   var t = params.data.EODTIM.toString().trim();
-//   if (t.length < 8)
-//     return params.data.EODTIM;
-//   return t.substring(0,2) + ':' + t.substring(3,5);
-// }
-
-// function PTADateValueGetter(params: ValueGetterParams) {
-//   var d = params.data.EOPDAT.toString().trim();
-//   if (d.length < 8)
-//     return params.data.EODDAT;
-//   return d.substring(4,6) + '/' + d.substring(6,8);
-// }
-
-// function PTATimeValueGetter(params: ValueGetterParams) {
-//   var t = params.data.EOPTIM.toString().trim();
-//   if (t.length < 8)
-//     return params.data.EODTIM;
-//   return t.substring(0,2) + ':' + t.substring(3,5);
-// }
-
-// function PJDDateValueGetter(params: ValueGetterParams) {
-//   var d = params.data.EOPDAT.toString().trim();
-//   var tmp: string[] = ['0', '0', '0', '1', '0', '0', '1', '0', '1', '1']; 
-//   var idx = params.node?.id? parseInt(params.node.id) : 0;
-//   if (tmp[idx%10] == '0')
-//     return '';
-//   if (d.length < 8)
-//     return params.data.EODDAT;
-//   return d.substring(4,6) + '/' + d.substring(6,8);
-// }
-
-// function PJDTimeValueGetter(params: ValueGetterParams) {
-//   var t = params.data.EOPTIM.toString().trim();
-//   var tmp: string[] = ['0', '0', '0', '1', '0', '0', '1', '0', '1', '1']; 
-//   var idx = params.node?.id? parseInt(params.node.id) : 0;
-//   if (tmp[idx%10] == '0')
-//     return '';
-//   if (t.length < 8)
-//     return params.data.EODTIM;
-//   return t.substring(0,2) + ':' + t.substring(3,5);
-// }
-
-// function CndValueGetter() {
-//   var tmpCnd: string[] = ['', 'D', 'DLP', 'L@', 'LE!', 'M', 'T', 'P', 'Dm', 'LPM'];
-
-//   return tmpCnd[Math.floor(Math.random() * 10)];
-// }
-
-// function Trlr1ValueGetter() {
-
-//   var tmpTrlr1: string[] = ['', 'A78394', '2332', 'B99884', 'G23009', '9008', 'K2290', 'D12231', '5344', '1239'];  
-
-//   return tmpTrlr1[Math.floor(Math.random() * 10)];
-// }
-
-
-// function PlanValueGetter() {
-
-//   var tmpPlan: string[] = ['', '00:51', '00:07', '', '00:34', '', '', '00:12', '', ''];  
-
-//   return tmpPlan[Math.floor(Math.random() * 10)];
-// }
-
-
-// function RDOValueGetter() {
-
-//   var tmpPlan: string[] = ['7', '8', '0', '', '', '', '', '13', '', '2'];  
-
-//   return tmpPlan[Math.floor(Math.random() * 10)];
-// }
-
-
-// function VHOS11ValueGetter() {
-//   var tmpHr= getRandomNumber(0, 11).toString().padStart(2,'0');
-//   var tmpMin = tmpHr == '11'? '00' : getRandomNumber(0, 5).toString().padEnd(2,'0');
-
-//   return tmpHr + ':' + tmpMin; 
-// }
-
-
-// function VHOS14ValueGetter() {
-//   var tmpHr= getRandomNumber(0, 14).toString().padStart(2,'0');
-//   var tmpMin =  tmpHr == '14'? '00' : getRandomNumber(0, 5).toString().padEnd(2,'0');
-
-//   return tmpHr + ':' + tmpMin; 
-// }
-
-// function VHOS70ValueGetter() {
-//   var tmpHr= getRandomNumber(0, 6).toString().padEnd(2,'0');
-//   var tmpMin = getRandomNumber(0, 5).toString().padEnd(2,'0');
-
-//   return tmpHr + ':' + tmpMin; 
-// }
-
-
-// function TPTValueGetter() {
-
-//   var tmpTPT: string[] = ['O', 'N', 'O', '', '', '', 'N', '', 'O', 'N'];  
-
-//   return tmpTPT[Math.floor(Math.random() * 10)];
-// }
-
-// function getRandomNumber(min: number, max: number): number {
-//   const minCeil = Math.ceil(min);
-//   const maxFloor = Math.floor(max);
-//   return Math.floor(Math.random() * (maxFloor - minCeil + 1)) + minCeil;
-// }
-
-
 
     

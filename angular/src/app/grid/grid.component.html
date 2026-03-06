@@ -13,25 +13,7 @@
     
 
   <mat-accordion style="height:30px;">
-  <!-- <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Personal data
-      </mat-panel-title>
-      <mat-panel-description>
-        Type your name and age
-      </mat-panel-description>
-    </mat-expansion-panel-header> -->
-
-    <!-- <mat-form-field>
-      <input matInput placeholder="First name">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Age">
-    </mat-form-field> -->
-  <!-- </mat-expansion-panel> -->
-  <mat-expansion-panel (opened)="isPanelOpen = true"
+    <mat-expansion-panel (opened)="isPanelOpen = true"
                        (closed)="isPanelOpen = false">
     <mat-expansion-panel-header class="{{ darkMode == 'dark' ? 'bg-zinc-900' : 'bg-zinc-50' }}" style="height: 30px;">
       <mat-panel-title>
@@ -190,8 +172,6 @@
                 <th [ngClass]="getHeaderClass('PTA')" pSortableColumn="ptaDt">Date<p-sortIcon field="ptaDt" /><p-columnFilter type="text" field="ptaDt" display="menu" class="ml-auto" /></th>
                 <th [ngClass]="getHeaderClass('PTA')" pSortableColumn="ptaTm">Time<p-sortIcon field="ptaTm" /><p-columnFilter type="text" field="ptaTm" display="menu" class="ml-auto" /></th>
                 <th [ngClass]="getHeaderClass('Cont')" pSortableColumn="cont">Last Contact<p-sortIcon field="cont" /><p-columnFilter type="text" field="cont" display="menu" class="ml-auto" /></th>
-                <!-- <th [ngClass]="getHeaderClass('Projected')" pSortableColumn="nxStpPrjDt">Date<p-sortIcon field="nxStpPrjDt" /><p-columnFilter type="text" field="nxStpPrjDt" display="menu" class="ml-auto" /></th>
-                <th [ngClass]="getHeaderClass('Projected')" pSortableColumn="nxStpPrjTm">Time<p-sortIcon field="nxStpPrjTm" /><p-columnFilter type="text" field="nxStpPrjTm" display="menu" class="ml-auto" /></th> -->
                 <th [ngClass]="getHeaderClass('Driver')" pSortableColumn="drvr1">Driver<p-sortIcon field="drvr1" /><p-columnFilter type="text" field="drvr1" display="menu" class="ml-auto" /></th>
                 <th [ngClass]="getHeaderClass('Home')" pSortableColumn="drHome1">Home<p-sortIcon field="drHome1" /><p-columnFilter type="text" field="drHome1" display="menu" class="ml-auto" /></th>
                 <th [ngClass]="getHeaderClass('7Day')" pSortableColumn="dr7DyMl1">Mile<p-sortIcon field="dr7DyMl1" /><p-columnFilter type="text" field="dr7DyMl1" display="menu" class="ml-auto" /></th>
@@ -202,11 +182,72 @@
                 <!-- <th [ngClass]="getHeaderClass('TPT')" pSortableColumn="nxStpNbr">TPT<p-sortIcon field="nxStpNbr" /><p-columnFilter type="text" field="nxStpNbr" display="menu" class="ml-auto" /></th> -->
             </tr>`  
         </ng-template>
-        <ng-template #body let-row>
-            <tr [pContextMenuRow]="row" [pSelectableRow]="row">
-                <td [ngClass]="getCellClass(row.iProp.opt)" >{{ row.fields.opt }} </td>
+        <ng-template #body let-row let-rowIndex="rowIndex">
+          <tr [pContextMenuRow]="row" [pSelectableRow]="row">
+            @for (column of columns;  let i = $index; track column.field) {
+              @if (column.field.length >=4 && ( column.field.startsWith("dest"))) {
+                @if (column.field == "dest") {
+                  <!-- <td>  </td><td [ngClass]="getCellClass(row.iProp[column.field])" > -->
+                  <td [hidden]="showHideColumn(i)">
+                    <!-- <p-tag severity="success" [rounded]="true">{{ row.fields["dest"] }}</p-tag> -->
+                    @if (isReverseImage(row.iProp[column.field])) {
+                      <p-tag [severity]="getSeverity(row.iProp[column.field])" [rounded]="true">{{ row.fields["dest"] }}</p-tag>
+                    }
+                    @else {
+                      {{ row.fields["dest"] }}
+                    }
+                  </td>
+                }
+              }
+              @else if (column.field.length >=4 && ( column.field.startsWith("cont"))) {
+                @if (column.field == "cont") {
+                  <!-- <td>  </td><td [ngClass]="getCellClass(row.iProp[column.field])" > -->
+                  <td [hidden]="showHideColumn(i)">
+                    <!-- <p-tag severity="success" [rounded]="true">{{ row.fields["dest"] }}</p-tag> -->
+                    @if (isReverseImage(row.iProp[column.field])) {
+                      <p-tag [severity]="getSeverity(row.iProp[column.field])" [rounded]="true">{{ row.fields["cont"] }}</p-tag>
+                    }
+                    @else {
+                      {{ row.fields["cont"] }}
+                    }
+                  </td>
+                }
+              }
+              @else {
+                <td [hidden]="showHideColumn(i)" [ngClass]="getCellClass(row.iProp[column.field])">
+                  @if (isReverseImage(row.iProp[column.field])) {
+                    <p-tag [severity]="getSeverity(row.iProp[column.field])" [rounded]="true">{{ row.fields[column.field] }}</p-tag>
+                  }
+                  @else {
+                    {{ row.fields[column.field] }}
+                  }
+                </td>
+              }
+                
+          
+           
+              <!-- @for (field of row.fields; track $index) {
+                <td [ngClass]="getCellClass(row.iProp[field[$index]])" >
+                  @if (row.iProp[$index].endsWith('Y')) {
+                     <p-tag severity="success" [rounded]="true">{{ field[$index] }}</p-tag>
+                  }
+                  @else {
+                    {{ field[$index] }}
+                  }
+                </td>
+              } -->
+
+     
+                <!-- <td [ngClass]="getCellClass(row.iProp.opt)" >{{ row.fields.opt }} </td>
                 <td [ngClass]="getCellClass(row.iProp.unit)" >{{ row.fields.unit }}</td>
-                <td [ngClass]="getCellClass(row.iProp.stat)" >{{ row.fields.stat }}</td>
+                <td [ngClass]="getCellClass(row.iProp.stat)" >
+                  @if (row.iProp.stat.endsWith('Y')) {
+                     <p-tag severity="success" [rounded]="true">{{ row.fields.stat }}</p-tag>
+                  }
+                  @else {
+                    {{ row.fields.stat }}
+                  }
+                </td>
                 <td [ngClass]="getCellClass(row.iProp.order)" >{{ row.fields.order }}</td>
                 <td [ngClass]="getCellClass(row.iProp.cnd)" >{{ row.fields.cnd }}</td>
                 <td [ngClass]="getCellClass(row.iProp.trlr)">{{ row.fields.trlr }}</td>
@@ -216,15 +257,13 @@
                 <td [ngClass]="getCellClass(row.iProp.ptaDt)">{{ row.fields.ptaDt}}</td>
                 <td [ngClass]="getCellClass(row.iProp.ptaTm)">{{ row.fields.ptaTm}}</td>
                 <td [ngClass]="getCellClass(row.iProp.cont)">{{ row.fields.cont }}</td>
-                <!-- <td [ngClass]="getCellClass(row.iProp.nxStpPrjDt)">{{ row.fields.nxStpPrjDt }}</td>
-                <td [ngClass]="getCellClass(row.iProp.nxStpPrjTm)">{{ row.fields.nxStpPrjTm }}</td> -->
                 <td [ngClass]="getCellClass(row.iProp.drvr1)">{{ row.fields.drvr1 }}</td>
                 <td [ngClass]="getCellClass(row.iProp.drHome1)">{{ row.fields.drHome1 }}</td>
                 <td [ngClass]="getCellClass(row.iProp.dr7DyMl1)">{{ row.fields.dr7DyMl1 }}</td>
                 <td [ngClass]="getCellClass(row.iProp.drRDO1)">{{ row.fields.drRDO1 }}</td>
                 <td [ngClass]="getCellClass(row.iProp.dr01hr1)">{{ row.fields.dr01hr1 }}</td>
                 <td [ngClass]="getCellClass(row.iProp.dr02hr1)">{{ row.fields.dr02hr1 }}</td>
-                <td [ngClass]="getCellClass(row.iProp.dr03hr1)">{{ row.fields.dr03hr1 }}</td>
+                <td [ngClass]="getCellClass(row.iProp.dr03hr1)">{{ row.fields.dr03hr1 }}</td> -->
                 <!-- <td [ngClass]="getCellClass(row.iProp.nxStpNbr)">{{ row.fields.nxStpNbr }}</td> -->
                 <!-- <td>{{ row.fields.opt }} </td>
                 <td>{{ row.fields.unit }}</td>
@@ -247,7 +286,9 @@
                 <td [ngStyle]="getCellStyle(row,'VHOS14Hrs', rowIndex)">{{ row.fields.dr02hr1 }}</td>
                 <td [ngStyle]="getCellStyle(row,'VHOS70Hrs', rowIndex)">{{ row.fields.dr03hr1 }}</td>
                 <td>{{ row.fields.nxStpNbr }}</td> -->
-            </tr>
+            }
+          </tr>
+
         </ng-template>
     </p-table>
     <div class="row py-2" style="display: flex; justify-content: center;padding-bottom:2px;">
