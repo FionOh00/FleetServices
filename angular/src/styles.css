@@ -9,6 +9,7 @@
   color-scheme: dark;
 }
 
+
 /* Logo Styles */
 .logo-container {
   position: absolute;
@@ -20,10 +21,6 @@
 .logo {
   height: 60px;
   width: auto;
-}
-
-.p-table {
-  font-family: Arial, Sans-serif, Helvetica;
 }
 
 input {
@@ -83,3 +80,5 @@ input {
   background-color: black;
   color: white;
 } */
+
+

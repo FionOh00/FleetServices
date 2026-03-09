@@ -52,9 +52,9 @@ export class GridComponent implements OnInit {
   rowData: any[] = [];
   row: any[] = [];
   first: number = 0;
-  rows: number = 10;
+  rows: number = 25;
   loading = false;
-  isPanelOpen: boolean = true;
+  isPanelOpen: boolean = false;
   initialData: any[] = [];
   selectedUnit: any | null = null;
   selectedMenuItem: any | null = null;
@@ -80,6 +80,7 @@ export class GridComponent implements OnInit {
     //     else {
     //       this.buttonClass = 'example-button-row-dark';
     //     }
+    this.isPanelOpen = false;
     this.loading = true;
     this.loadData();
     // this.op = [
@@ -312,122 +313,156 @@ export class GridComponent implements OnInit {
     return true;
   }
 
-  getHeaderClass(header: string): any {
-    var style = '';
-    switch (header) {
-      case 'Opt':
-      case 'Stat':
-      case 'Cnd':
-      case 'Dest':
-      case 'ETA':
-      case 'PTA':
-      case 'Cont':
-      case '7Day':
-      case 'RDO':
-      case 'VHOS':
-        if (this.darkMode == 'dark')
-          style = 'highlight-header-pink-dark'; //{ color: 'Fuchsia'};
-        else style = 'highlight-header-pink'; //{ color: 'Fuchsia'};
-        break;
-      case 'Unit':
-      case 'Order':
-      case 'Trlr1':
-      case 'Driver':
-      case 'Home':
-        if (this.darkMode == 'dark')
-          style = 'highlight-header-yellow-dark'; //{ color: 'Yellow'};
-        else style = 'highlight-header-yellow'; //{ color: '#ffbf00' };
-        break;
-      default:
-        if (this.darkMode == 'dark') style = ''; //{ color: 'White'};
-    }
-    return style;
+  tableClass(): string {
+    return this.darkMode ? 'table-light' : 'table-dark';
   }
 
-  getCellStyle(row: any, fldName: string, rowIdx: number): any {
-    // if (this.darkMode) {
-    //   if (params.value >= '11:00') {
-    //     return { color: 'Red' };
-    //   }
-    // }
-    var style = { color: 'Black' };
-    switch (fldName) {
-      case 'Order':
-        var tmp: string[] = ['0', '1', '1', '0', '0', '1', '0', '1', '0', '1'];
-        var idx = rowIdx ? rowIdx : 0;
-        if (tmp[idx % 10] == '1') {
-          if (this.darkMode == 'dark') style = { color: 'Aqua' };
-          else style = { color: '#06A1BC' };
-        } else {
-          if (this.darkMode == 'dark') {
-            style = { color: 'White' };
-          } else style = { color: 'Black' };
-        }
-        break;
-      case 'Dest':
-        var tmp: string[] = ['0', '0', '0', '0', '0', '0', '0', '1', '0', '1'];
-        var idx = rowIdx ? rowIdx : 0;
-        if (tmp[idx % 10] == '1') {
-          if (this.darkMode == 'dark') style = { color: 'Yellow' };
-          else style = { color: '#B7A106' };
-        } else {
-          if (this.darkMode == 'dark') {
-            style = { color: 'White' };
-          } else style = { color: 'Black' };
-        }
-        break;
-      case 'Projected':
-        var tmp: string[] = ['0', '0', '0', '1', '0', '0', '0', '0', '1', '1'];
-        var idx = rowIdx ? rowIdx : 0;
-        if (tmp[idx % 10] == '0') {
-          if (this.darkMode == 'dark') style = { color: 'White' };
-          else style = { color: 'Black' };
-        } else {
-          if (this.darkMode == 'dark') {
-            style = { color: 'Red' };
-          } else style = { color: '#E20405' };
-        }
-        break;
-      case 'VHOS11Hrs':
-        if (this.darkMode == 'dark') {
-          if (row.VHOS11Hrs === '00:00') style = { color: 'Red' };
-          else style = { color: '#3ED006' };
-        } else {
-          if (row.VHOS11Hrs === '00:00') style = { color: '#E20405' };
-          else style = { color: '#018E1A' }; //green
-        }
-        break;
-      case 'VHOS70Hrs':
-        if (this.darkMode == 'dark') {
-          if (row.VHOS70Hrs === '00:00') style = { color: 'Red' };
-          else style = { color: '#3ED006' }; //green
-        } else {
-          if (row.VHOS70Hrs === '00:00') style = { color: '#E20405' };
-          else style = { color: '#018E1A' };
-        }
-        break;
-      case 'VHOS14Hrs':
-        if (this.darkMode == 'dark') {
-          if (row.VHOS14Hrs === '00:00') style = { color: 'Yellow' };
-          else style = { color: '#3ED006' }; //green
-        } else {
-          if (row.VHOS14Hrs === '00:00') style = { color: '#D08906' };
-          else style = { color: '#018E1A' };
-        }
-        break;
-      case 'RDO':
-        if (this.darkMode == 'dark') {
-          if (row.RDO > '6')
-            style = { color: '#3ED006' }; //3ED006
-          else style = { color: 'Yellow' }; //D7B304
-        } else {
-          if (row.RDO > '6') style = { color: '#018E1A' };
-          else style = { color: '#B7A106' }; ///B7A106
-        }
-        break;
-    }
-    return style;
+  getHeaderClass(): any {
+    // var style = '';
+    // if (this.darkMode == 'dark') 
+    //   style = 'highlight-header-dark'; 
+    // else 
+    //   style = 'highlight-header-light';
+    return this.darkMode == 'dark' ? 'highlight-header-dark' : 'highlight-header-light';
   }
+
+  getTagClass(): any {
+    return this.darkMode == 'dark' ? 'highlight-tag-dark' : 'highlight-tag-light';
+  }
+
+
+   getRowClass(): any {
+    if (this.darkMode == 'dark') {
+      return 'row-dark';
+    } else {
+      return 'row-light';
+    }
+  }
+
+  getBackgroundStyle(): any {
+    return this.darkMode == 'dark' ? 'background-dark' : 'background-light';
+  }
+
+
+  // public myRowClass(v) {
+  //   return v < 3 ? 'greenBkg' : v < 5 ? 'yellowBkg' : 'redBkg';
+  // }
+  // getHeaderClass(header: string): any {
+  //   var style = '';
+  //   switch (header) {
+  //     case 'Opt':
+  //     case 'Stat':
+  //     case 'Cnd':
+  //     case 'Dest':
+  //     case 'ETA':
+  //     case 'PTA':
+  //     case 'Cont':
+  //     case '7Day':
+  //     case 'RDO':
+  //     case 'VHOS':
+  //       if (this.darkMode == 'dark')
+  //         style = 'highlight-header-pink-dark'; //{ color: 'Fuchsia'};
+  //       else style = 'highlight-header-pink'; //{ color: 'Fuchsia'};
+  //       break;
+  //     case 'Unit':
+  //     case 'Order':
+  //     case 'Trlr1':
+  //     case 'Driver':
+  //     case 'Home':
+  //       if (this.darkMode == 'dark')
+  //         style = 'highlight-header-yellow-dark'; //{ color: 'Yellow'};
+  //       else style = 'highlight-header-yellow'; //{ color: '#ffbf00' };
+  //       break;
+  //     default:
+  //       if (this.darkMode == 'dark') style = ''; //{ color: 'White'};
+  //   }
+  //   return style;
+  // }
+
+  // getCellStyle(row: any, fldName: string, rowIdx: number): any {
+  //   // if (this.darkMode) {
+  //   //   if (params.value >= '11:00') {
+  //   //     return { color: 'Red' };
+  //   //   }
+  //   // }
+  //   var style = { color: 'Black' };
+  //   switch (fldName) {
+  //     case 'Order':
+  //       var tmp: string[] = ['0', '1', '1', '0', '0', '1', '0', '1', '0', '1'];
+  //       var idx = rowIdx ? rowIdx : 0;
+  //       if (tmp[idx % 10] == '1') {
+  //         if (this.darkMode == 'dark') style = { color: 'Aqua' };
+  //         else style = { color: '#06A1BC' };
+  //       } else {
+  //         if (this.darkMode == 'dark') {
+  //           style = { color: 'White' };
+  //         } else style = { color: 'Black' };
+  //       }
+  //       break;
+  //     case 'Dest':
+  //       var tmp: string[] = ['0', '0', '0', '0', '0', '0', '0', '1', '0', '1'];
+  //       var idx = rowIdx ? rowIdx : 0;
+  //       if (tmp[idx % 10] == '1') {
+  //         if (this.darkMode == 'dark') style = { color: 'Yellow' };
+  //         else style = { color: '#B7A106' };
+  //       } else {
+  //         if (this.darkMode == 'dark') {
+  //           style = { color: 'White' };
+  //         } else style = { color: 'Black' };
+  //       }
+  //       break;
+  //     case 'Projected':
+  //       var tmp: string[] = ['0', '0', '0', '1', '0', '0', '0', '0', '1', '1'];
+  //       var idx = rowIdx ? rowIdx : 0;
+  //       if (tmp[idx % 10] == '0') {
+  //         if (this.darkMode == 'dark') style = { color: 'White' };
+  //         else style = { color: 'Black' };
+  //       } else {
+  //         if (this.darkMode == 'dark') {
+  //           style = { color: 'Red' };
+  //         } else style = { color: '#E20405' };
+  //       }
+  //       break;
+  //     case 'VHOS11Hrs':
+  //       if (this.darkMode == 'dark') {
+  //         if (row.VHOS11Hrs === '00:00') style = { color: 'Red' };
+  //         else style = { color: '#3ED006' };
+  //       } else {
+  //         if (row.VHOS11Hrs === '00:00') style = { color: '#E20405' };
+  //         else style = { color: '#018E1A' }; //green
+  //       }
+  //       break;
+  //     case 'VHOS70Hrs':
+  //       if (this.darkMode == 'dark') {
+  //         if (row.VHOS70Hrs === '00:00') style = { color: 'Red' };
+  //         else style = { color: '#3ED006' }; //green
+  //       } else {
+  //         if (row.VHOS70Hrs === '00:00') style = { color: '#E20405' };
+  //         else style = { color: '#018E1A' };
+  //       }
+  //       break;
+  //     case 'VHOS14Hrs':
+  //       if (this.darkMode == 'dark') {
+  //         if (row.VHOS14Hrs === '00:00') style = { color: 'Yellow' };
+  //         else style = { color: '#3ED006' }; //green
+  //       } else {
+  //         if (row.VHOS14Hrs === '00:00') style = { color: '#D08906' };
+  //         else style = { color: '#018E1A' };
+  //       }
+  //       break;
+  //     case 'RDO':
+  //       if (this.darkMode == 'dark') {
+  //         if (row.RDO > '6')
+  //           style = { color: '#3ED006' }; //3ED006
+  //         else style = { color: 'Yellow' }; //D7B304
+  //       } else {
+  //         if (row.RDO > '6') style = { color: '#018E1A' };
+  //         else style = { color: '#B7A106' }; ///B7A106
+  //       }
+  //       break;
+  //   }
+  //   return style;
+  // }
 
   getCellClass(colorCode: string): any {
     var theme = this.darkMode == 'dark' ? 'dark' : 'light';
@@ -447,13 +482,13 @@ export class GridComponent implements OnInit {
       case 'G':
         return 'success';
       case 'B':
-        return 'info';
+        return 'secondary';
       case 'Y':
         return 'warn';
       case 'R':
-        return 'info';
+        return 'danger';
       case 'W':
-        return 'success';
+        return 'info';
       default:
         return '';
     }
